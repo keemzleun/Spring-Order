@@ -30,17 +30,17 @@ public class OrderingService {
     private final ProductRepository productRepository;
     private final OrderDetailRepository orderDetailRepository;
     private final StockInventoryService stockInventoryService;
-    private final StockDecreaseEventHandler stockDecreaseEventHandler;
+//    private final StockDecreaseEventHandler stockDecreaseEventHandler;
     private final SseController sseController;
 
     @Autowired
-    public OrderingService(OrderingRepository orderingRepository, MemberRepository memberRepository, ProductRepository productRepository, OrderDetailRepository orderDetailRepository, StockInventoryService stockInventoryService, StockDecreaseEventHandler stockDecreaseEventHandler, SseController sseController) {
+    public OrderingService(OrderingRepository orderingRepository, MemberRepository memberRepository, ProductRepository productRepository, OrderDetailRepository orderDetailRepository, StockInventoryService stockInventoryService, SseController sseController) {
         this.orderingRepository = orderingRepository;
         this.memberRepository = memberRepository;
         this.productRepository = productRepository;
         this.orderDetailRepository = orderDetailRepository;
         this.stockInventoryService = stockInventoryService;
-        this.stockDecreaseEventHandler = stockDecreaseEventHandler;
+//        this.stockDecreaseEventHandler = stockDecreaseEventHandler;
         this.sseController = sseController;
     }
 
@@ -86,8 +86,8 @@ public class OrderingService {
                 if (newQuantity < 0){
                     throw new IllegalArgumentException("재고가 부족합니다");
                 }
-                // rdb에 재고를 업데이트. rabbitmq를 통해 비동기적으로 이벤트 처리
-                stockDecreaseEventHandler.publish(new StockDecreaseEvent(product.getId(), dto.getProductCount()));
+//                // rdb에 재고를 업데이트. rabbitmq를 통해 비동기적으로 이벤트 처리
+//                stockDecreaseEventHandler.publish(new StockDecreaseEvent(product.getId(), dto.getProductCount()));
             } else {
                 if (product.getStockQuantity() < quantity){
                     throw new IllegalArgumentException("재고가 부족합니다");
