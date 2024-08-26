@@ -56,7 +56,7 @@ public class ProductService {
         try {
             product = productRepository.save(dto.toEntity());
             byte[] bytes = image.getBytes();
-            Path path = Paths.get("/Users/keemzleun/study/tmpimg/",
+            Path path = Paths.get("/tmpimg/",
                     product.getId() + "_" + image.getOriginalFilename());
             Files.write(path, bytes, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
             product.updateImagePath(path.toString());   // 더티 체킹. 변경 감기
